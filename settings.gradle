@@ -1,0 +1,3 @@
+rootProject.name = 'FragmentNavigator'
+include ':app'
+include ':lib_navigator'
