@@ -40,6 +40,7 @@ import androidx.navigation.NavigatorProvider;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -177,9 +178,14 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
             fragmentTransaction.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim);
         }
 
-        Fragment oldPrimaryFragment = mFragmentManager.getPrimaryNavigationFragment();
-        if (oldPrimaryFragment != null) {
-            fragmentTransaction.hide(oldPrimaryFragment);
+        //  Fragment oldPrimaryFragment = mFragmentManager.getPrimaryNavigationFragment();
+        //  if (oldPrimaryFragment != null) {
+        //      fragmentTransaction.hide(oldPrimaryFragment);
+        //  }
+
+        List<Fragment> fragments = mFragmentManager.getFragments();
+        for (Fragment fragment : fragments) {
+            fragmentTransaction.hide(fragment);
         }
 
         Fragment newPrimaryFragment;
@@ -192,7 +198,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
             fragmentTransaction.show(newPrimaryFragment);
         }
 
-        //fragmentTransaction.replace(mContainerId, frag);
+        //  fragmentTransaction.replace(mContainerId, frag);
         fragmentTransaction.setPrimaryNavigationFragment(newPrimaryFragment);
 
         final @IdRes int destId = destination.getId();
